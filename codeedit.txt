@@ -1,0 +1,13 @@
+// Write a more efficient version of isChar than the one in the exercise description
+        // Use the hint!
+        int index = 0;
+        while(index < string.length())
+        {
+            String character = string.substring(index,index+1);
+            if(character.equals(key))
+            {
+                return true;
+            }
+            index++;
+        }
+        return false;
