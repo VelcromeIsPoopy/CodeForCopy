@@ -47,7 +47,6 @@ function snake(){
     var tail = new Rectangle(SNAKE_DIM, SNAKE_DIM);
     tail.setPosition(snek.getX()-dx, snek.getY()-dy);
     tail.setColor(SNAKE_COLOR);
-    tail
     add(tail);
     
     var e = getElementAt(snek.getX()+variable, snek.getY()+variable);
@@ -70,7 +69,7 @@ function changeDirection(e){
         NORTH = 0;
         SOUTH = 0;
         EAST = 0;
-        variable = -1
+        variable = -1;
     }
     if(e.keyCode == Keyboard.RIGHT){
         dx=10;
@@ -79,7 +78,7 @@ function changeDirection(e){
         NORTH = 0;
         SOUTH = 0;
         EAST = 1;
-        variable = 1
+        variable = 1;
     }
     if(e.keyCode == Keyboard.UP){
         dx=0;
@@ -88,16 +87,16 @@ function changeDirection(e){
         NORTH = 1;
         SOUTH = 0;
         EAST = 0;
-        variable = -1
+        variable = -1;
     }
     if(e.keyCode == Keyboard.DOWN){
         dx=0;
         dy=10;
         WEST = 0;
-        NORTH = 0
+        NORTH = 0;
         SOUTH = 1;
         EAST = 0;
-        variable = 1
+        variable = 1;
     }
 }
 
