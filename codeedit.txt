@@ -1,13 +1,108 @@
-// Write a more efficient version of isChar than the one in the exercise description
-        // Use the hint!
-        int index = 0;
-        while(index < string.length())
-        {
-            String character = string.substring(index,index+1);
-            if(character.equals(key))
-            {
-                return true;
-            }
-            index++;
+var SNAKE_DIM = 10;
+var SNAKE_COLOR = Color.green;
+var snek = new Rectangle(SNAKE_DIM, SNAKE_DIM);
+
+var NORTH = 3;
+var EAST = 0;
+var SOUTH = 1;
+var WEST = 2;
+var dx = 10;
+var dy = 0;
+var variable = 1;
+
+function start(){
+    snek.setPosition((getWidth()/2)-10, (getHeight()/2)-10);
+    snek.setColor("#1df705");
+    add(snek);
+    
+    setTimer(movement, 40);
+    setTimer(snake, 40);
+    keyDownMethod(changeDirection);
+}
+
+function movement(){
+    snek.move(dx, dy);
+    checkWalls();
+}
+
+function checkWalls(){
+    if(snek.getX() > getWidth()){
+        snek.setPosition(0, snek.getY());
+    }
+    
+    if(snek.getX() < 0){
+        snek.setPosition(getWidth(), snek.getY());
+    }
+    
+    if(snek.getY() > getHeight()){
+        snek.setPosition(snek.getX(), 0);
+    }
+    
+    if(snek.getY() < 0){
+        snek.setPosition(snek.getX(), getHeight());
+    }
+}
+
+function snake(){
+    var tail = new Rectangle(SNAKE_DIM, SNAKE_DIM);
+    tail.setPosition(snek.getX()-dx, snek.getY()-dy);
+    tail.setColor(SNAKE_COLOR);
+    tail
+    add(tail);
+    
+    var e = getElementAt(snek.getX()+variable, snek.getY()+variable);
+    if(e != null){
+        if(e.getColor() == SNAKE_COLOR){
+            stopTimer(movement);
+            stopTimer(snake);
+            var t = new Text("You Lose.");
+            t.setPosition(getWidth()/2, getHeight()/2);
+            add(t);
         }
-        return false;
+    }
+}
+
+function changeDirection(e){
+    if(e.keyCode == Keyboard.LEFT){
+        dx = -10;
+        dy = 0;
+        WEST = 1;
+        NORTH = 0;
+        SOUTH = 0;
+        EAST = 0;
+        variable = -1
+    }
+    if(e.keyCode == Keyboard.RIGHT){
+        dx=10;
+        dy=0;
+        WEST = 0;
+        NORTH = 0;
+        SOUTH = 0;
+        EAST = 1;
+        variable = 1
+    }
+    if(e.keyCode == Keyboard.UP){
+        dx=0;
+        dy=-10;
+        WEST = 0;
+        NORTH = 1;
+        SOUTH = 0;
+        EAST = 0;
+        variable = -1
+    }
+    if(e.keyCode == Keyboard.DOWN){
+        dx=0;
+        dy=10;
+        WEST = 0;
+        NORTH = 0
+        SOUTH = 1;
+        EAST = 0;
+        variable = 1
+    }
+}
+
+//            stopTimer(movement);
+//            stopTimer(snake);
+//            var t = new Text("You Lose.");
+//            t.setPosition(getWidth()/2, getHeight()/2);
+//            add(t);
