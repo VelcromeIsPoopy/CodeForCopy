@@ -4,7 +4,7 @@ var POINTS_TEXT_X = 5;
 var POINTS_TEXT_Y_BUFFER = 5;
 var POINTS_FONT = "17pt Arial";
 var points = 0;
-var p = new Text(points)
+var p = new Text(points);
 var counter;
 
 // Start with your code from Fun Snake 2
