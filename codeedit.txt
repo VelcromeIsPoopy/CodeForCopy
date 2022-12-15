@@ -1,37 +1,32 @@
-import java.util.Scanner;
+public class CarTester {
 
-public class FoodRunner
-{
-    public static void main(String[] args)
-    {
-        // Start here!
-        Food food1 = new Food("Hamburgers", 600);
-        Food food2 = new Food("French Fries", 350);
-        Food food3 = new Food("Coke", 200);
-        
-        Scanner input = new Scanner(System.in);
-        
-        int total = 0;
-        int choice = 0;
-        
-        System.out.println(food1.toString());
-        System.out.println("How many would you like?");
-        choice = input.nextInt();
-        
-        total += choice * food1.getCalories();
-        
-        System.out.println(food2.toString());
-        System.out.println("How many would you like?");
-        choice = input.nextInt();
-        
-        total += choice * food2.getCalories();
-        
-        System.out.println(food3.toString());
-        System.out.println("How many would you like?");
-        choice = input.nextInt();
-        
-        total += choice * food3.getCalories();
-        
-        System.out.println("Your meal will have a total of " + total + " calories");
+    public static void main(String[] args) {
+        //Create a car that gets 20 mpg and has a 15 gallon tank
+        Car c = new Car(20, 15);
+        //Fill up the gas tank
+        c.addGas();
+        //Check the miles available
+        double m1 = c.milesAvailable();
+        System.out.println("Miles available: " + m1);
+        //Drive 100 miles
+        c.drive(100);
+        //Check the miles available
+        double m2 = c.milesAvailable();
+        System.out.println("Miles available: " + m2);
+        //Add 2 gallons to the gas tank
+        c.addGas(2);
+        //Check the miles available
+        double m3 = c.milesAvailable();
+        System.out.println("Miles available: " + m3);
+        //Try driving more miles than available by driving 1000 miles
+        c.drive(1000);
+        //Drive 200 miles
+        c.drive(200);
+        //Check how much gas you have left
+        double g1 = c.getGas();
+        System.out.println("Gas remaining: " + g1);
+        //Print total miles driven
+        double m4 = c.getTotalMilesDriven();
+        System.out.println("Total Miles Driven: " + m4);
     }
 }
