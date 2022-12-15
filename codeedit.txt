@@ -1,15 +1,159 @@
-// Create three Distance objects
-        Distance dis1 = new Distance(5.0);
-        Distance dis2 = new Distance(20.0);
-        Distance dis3 = new Distance(10.0);
-        // Convert one to miles, one to leagues and
-        // double one mileage
-        dis1.toMiles();
-        dis2.toLeagues();
-        dis3.doubleMiles();
-        // Print out the converted values
-        System.out.println(dis1.getKilometers() + " km = " + dis1.toMiles() + " miles");
-        System.out.println(dis2.getKilometers() + " km = " + dis2.toLeagues() + " leagues");
-        System.out.println(dis3.getKilometers() + " km (one way) = " + dis3.doubleMiles() + "miles (round trip)");
-        // Use the getter!
-        System.out.println(dis1.getKilometers());
+// Copy in your code from Fun Snake 3
+
+var POINTS_TEXT_X = 5;
+var POINTS_TEXT_Y_BUFFER = 5;
+var POINTS_FONT = "17pt Arial";
+var points = 0;
+var p = new Text(points)
+var counter;
+
+// Start with your code from Fun Snake 2
+
+var FOOD_DELAY = 6000;
+var FOOD_RADIUS = 5;
+var FOOD_COLOR = Color.red;
+var foodx = Randomizer.nextInt(0, getWidth());
+var foody = Randomizer.nextInt(0, getHeight());
+
+var SNAKE_DIM = 10;
+var SNAKE_COLOR = Color.green;
+var snek = new Rectangle(SNAKE_DIM, SNAKE_DIM);
+
+var NORTH = 3;
+var EAST = 0;
+var SOUTH = 1;
+var WEST = 2;
+var dx = 10;
+var dy = 0;
+var variable = 1;
+
+function start(){
+    snek.setPosition((getWidth()/2)-10, (getHeight()/2)-10);
+    snek.setColor("#1df705");
+    add(snek);
+    
+    food();
+    setTimer(point, 40);
+    setTimer(food, FOOD_DELAY);
+    setTimer(movement, 40);
+    setTimer(snake, 40);
+    keyDownMethod(changeDirection);
+}
+
+function movement(){
+    snek.move(dx, dy);
+    points++;
+    checkWalls();
+}
+
+function checkWalls(){
+    if(snek.getX() > getWidth()){
+        snek.setPosition(0, snek.getY());
+    }
+    
+    if(snek.getX() < 0){
+        snek.setPosition(getWidth(), snek.getY());
+    }
+    
+    if(snek.getY() > getHeight()){
+        snek.setPosition(snek.getX(), 0);
+    }
+    
+    if(snek.getY() < 0){
+        snek.setPosition(snek.getX(), getHeight());
+    }
+}
+
+function snake(){
+    var tail = new Rectangle(SNAKE_DIM, SNAKE_DIM);
+    tail.setPosition(snek.getX()-dx, snek.getY()-dy);
+    tail.setColor(SNAKE_COLOR);
+    add(tail);
+    
+    var e = getElementAt(snek.getX()+variable, snek.getY()+variable);
+    if(e != null){
+        if(e.getColor() == SNAKE_COLOR){
+            stopTimer(food);
+            stopTimer(point);
+            stopTimer(movement);
+            stopTimer(snake);
+            var t = new Text("You Lose.");
+            t.setPosition(getWidth()/2, getHeight()/2);
+            add(t);
+        }
+    }
+    
+    var feed = getElementAt(snek.getX()+variable, snek.getY()+variable);
+    if(feed != null){
+        if(feed.getColor() == FOOD_COLOR){
+            remove(feed);
+            points += 100;
+        }
+    }
+}
+
+function changeDirection(e){
+    if(e.keyCode == Keyboard.LEFT){
+        dx = -10;
+        dy = 0;
+        WEST = 1;
+        NORTH = 0;
+        SOUTH = 0;
+        EAST = 0;
+        variable = -1;
+    }
+    if(e.keyCode == Keyboard.RIGHT){
+        dx=10;
+        dy=0;
+        WEST = 0;
+        NORTH = 0;
+        SOUTH = 0;
+        EAST = 1;
+        variable = 1;
+    }
+    if(e.keyCode == Keyboard.UP){
+        dx=0;
+        dy=-10;
+        WEST = 0;
+        NORTH = 1;
+        SOUTH = 0;
+        EAST = 0;
+        variable = -1;
+    }
+    if(e.keyCode == Keyboard.DOWN){
+        dx=0;
+        dy=10;
+        WEST = 0;
+        NORTH = 0;
+        SOUTH = 1;
+        EAST = 0;
+        variable = 1;
+    }
+}
+
+function food(){
+    foodx = Randomizer.nextInt(0, getWidth());
+    foody = Randomizer.nextInt(0, getHeight());
+    var f = new Circle(FOOD_RADIUS);
+    f.setColor(FOOD_COLOR);
+    while(true){
+        if(foodx % 10 == 0 && foody % 10 == 0 && foodx != 0 && foody != 0){
+            var c = getElementAt(foodx-FOOD_RADIUS, foody-FOOD_RADIUS);
+            if(c == null){
+                f.setPosition(foodx-FOOD_RADIUS, foody-FOOD_RADIUS);
+                break;
+            }
+        } else {
+            foodx = Randomizer.nextInt(0, getWidth());
+            foody = Randomizer.nextInt(0, getHeight());
+        }
+    }
+    add(f);
+}
+
+function point(){
+    p.setText(points);
+    p.setPosition(POINTS_TEXT_X, getHeight()-POINTS_TEXT_Y_BUFFER);
+    p.setFont(POINTS_FONT);
+    add(p);
+}
