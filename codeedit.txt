@@ -1,159 +1,37 @@
-// Copy in your code from Fun Snake 3
+import java.util.Scanner;
 
-var POINTS_TEXT_X = 5;
-var POINTS_TEXT_Y_BUFFER = 5;
-var POINTS_FONT = "17pt Arial";
-var points = 0;
-var p = new Text(points);
-var counter;
-
-// Start with your code from Fun Snake 2
-
-var FOOD_DELAY = 6000;
-var FOOD_RADIUS = 5;
-var FOOD_COLOR = Color.red;
-var foodx = Randomizer.nextInt(0, getWidth());
-var foody = Randomizer.nextInt(0, getHeight());
-
-var SNAKE_DIM = 10;
-var SNAKE_COLOR = Color.green;
-var snek = new Rectangle(SNAKE_DIM, SNAKE_DIM);
-
-var NORTH = 3;
-var EAST = 0;
-var SOUTH = 1;
-var WEST = 2;
-var dx = 10;
-var dy = 0;
-var variable = 1;
-
-function start(){
-    snek.setPosition((getWidth()/2)-10, (getHeight()/2)-10);
-    snek.setColor("#1df705");
-    add(snek);
-    
-    food();
-    setTimer(point, 40);
-    setTimer(food, FOOD_DELAY);
-    setTimer(movement, 40);
-    setTimer(snake, 40);
-    keyDownMethod(changeDirection);
-}
-
-function movement(){
-    snek.move(dx, dy);
-    points++;
-    checkWalls();
-}
-
-function checkWalls(){
-    if(snek.getX() > getWidth()){
-        snek.setPosition(0, snek.getY());
+public class FoodRunner
+{
+    public static void main(String[] args)
+    {
+        // Start here!
+        Food food1 = new Food("Hamburgers", 600);
+        Food food2 = new Food("French Fries", 350);
+        Food food3 = new Food("Coke", 200);
+        
+        Scanner input = new Scanner(System.in);
+        
+        int total = 0;
+        int choice = 0;
+        
+        System.out.println(food1.toString());
+        System.out.println("How many would you like?");
+        choice = input.nextInt();
+        
+        total += choice * food1.getCalories();
+        
+        System.out.println(food2.toString());
+        System.out.println("How many would you like?");
+        choice = input.nextInt();
+        
+        total += choice * food2.getCalories();
+        
+        System.out.println(food3.toString());
+        System.out.println("How many would you like?");
+        choice = input.nextInt();
+        
+        total += choice * food3.getCalories();
+        
+        System.out.println("Your meal will have a total of " + total + " calories");
     }
-    
-    if(snek.getX() < 0){
-        snek.setPosition(getWidth(), snek.getY());
-    }
-    
-    if(snek.getY() > getHeight()){
-        snek.setPosition(snek.getX(), 0);
-    }
-    
-    if(snek.getY() < 0){
-        snek.setPosition(snek.getX(), getHeight());
-    }
-}
-
-function snake(){
-    var tail = new Rectangle(SNAKE_DIM, SNAKE_DIM);
-    tail.setPosition(snek.getX()-dx, snek.getY()-dy);
-    tail.setColor(SNAKE_COLOR);
-    add(tail);
-    
-    var e = getElementAt(snek.getX()+variable, snek.getY()+variable);
-    if(e != null){
-        if(e.getColor() == SNAKE_COLOR){
-            stopTimer(food);
-            stopTimer(point);
-            stopTimer(movement);
-            stopTimer(snake);
-            var t = new Text("You Lose.");
-            t.setPosition(getWidth()/2, getHeight()/2);
-            add(t);
-        }
-    }
-    
-    var feed = getElementAt(snek.getX()+variable, snek.getY()+variable);
-    if(feed != null){
-        if(feed.getColor() == FOOD_COLOR){
-            remove(feed);
-            points += 100;
-        }
-    }
-}
-
-function changeDirection(e){
-    if(e.keyCode == Keyboard.LEFT){
-        dx = -10;
-        dy = 0;
-        WEST = 1;
-        NORTH = 0;
-        SOUTH = 0;
-        EAST = 0;
-        variable = -1;
-    }
-    if(e.keyCode == Keyboard.RIGHT){
-        dx=10;
-        dy=0;
-        WEST = 0;
-        NORTH = 0;
-        SOUTH = 0;
-        EAST = 1;
-        variable = 1;
-    }
-    if(e.keyCode == Keyboard.UP){
-        dx=0;
-        dy=-10;
-        WEST = 0;
-        NORTH = 1;
-        SOUTH = 0;
-        EAST = 0;
-        variable = -1;
-    }
-    if(e.keyCode == Keyboard.DOWN){
-        dx=0;
-        dy=10;
-        WEST = 0;
-        NORTH = 0;
-        SOUTH = 1;
-        EAST = 0;
-        variable = 1;
-    }
-}
-
-function food(){
-    foodx = Randomizer.nextInt(0, getWidth());
-    foody = Randomizer.nextInt(0, getHeight());
-    var f = new Circle(FOOD_RADIUS);
-    f.setColor(FOOD_COLOR);
-    while(true){
-        if(foodx % 10 == 0 && foody % 10 == 0 && foodx != 0 && foody != 0){
-            var c = getElementAt(foodx-FOOD_RADIUS, foody-FOOD_RADIUS);
-            if(c == null){
-                f.setPosition(foodx-FOOD_RADIUS, foody-FOOD_RADIUS);
-                break;
-            }
-        } else {
-            foodx = Randomizer.nextInt(0, getWidth());
-            foody = Randomizer.nextInt(0, getHeight());
-        }
-    }
-    add(f);
-}
-
-function point(){
-    p.setText(points);
-    p.setPosition(POINTS_TEXT_X, getHeight()-POINTS_TEXT_Y_BUFFER);
-    p.setFont(POINTS_FONT);
-    add(p);
 }
