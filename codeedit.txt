@@ -1,32 +1,22 @@
-public class CarTester {
-
-    public static void main(String[] args) {
-        //Create a car that gets 20 mpg and has a 15 gallon tank
-        Car c = new Car(20, 15);
-        //Fill up the gas tank
-        c.addGas();
-        //Check the miles available
-        double m1 = c.milesAvailable();
-        System.out.println("Miles available: " + m1);
-        //Drive 100 miles
-        c.drive(100);
-        //Check the miles available
-        double m2 = c.milesAvailable();
-        System.out.println("Miles available: " + m2);
-        //Add 2 gallons to the gas tank
-        c.addGas(2);
-        //Check the miles available
-        double m3 = c.milesAvailable();
-        System.out.println("Miles available: " + m3);
-        //Try driving more miles than available by driving 1000 miles
-        c.drive(1000);
-        //Drive 200 miles
-        c.drive(200);
-        //Check how much gas you have left
-        double g1 = c.getGas();
-        System.out.println("Gas remaining: " + g1);
-        //Print total miles driven
-        double m4 = c.getTotalMilesDriven();
-        System.out.println("Total Miles Driven: " + m4);
+public class RandomizerTester
+{
+    public static void main(String[] args)
+    {
+    
+        System.out.println("Results of Randomizer.nextInt()");
+        for(int i = 0; i < 10; i++)
+        {
+            System.out.println(Randomizer.nextInt());
+        }
+       
+        //Initialize min and max for Randomizer.nextInt(min,max)
+        int min = 5;
+        int max = 10;
+        System.out.println("\nResults of Randomizer.nextInt(5,10)");
+        for(int i = 0; i < 10; i++)
+        {
+            System.out.println(Randomizer.nextInt(min ,max));
+        }
+        
     }
 }
