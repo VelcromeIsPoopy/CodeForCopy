@@ -1,20 +1,16 @@
-public class FirstArray
+public class LastElement
 {
     public static void main(String[] args)
     {
-      // Create the 3 arrays here
-        String[] s = {"Las Vegas", "Minsk", "Sao Paulo"};
-        int[] i = {667501, 2038822, 12330000};
-        double[] d = {8.11, 1.36, 6.05};
-      // Print all 3 arrays according to the output in the description
-        System.out.println(s[0] + "'s population is " + i[0] + ".");
-        System.out.println(s[1] + "'s population is " + i[1] + ".");
-        System.out.println(s[2] + "'s population is " + i[2] + ".");
-        
-        System.out.println("");
-        
-        System.out.println("The least amount of sunshine " + s[0] + " gets is " + d[0] + " hours a day.");
-        System.out.println("The least amount of sunshine " + s[1] + " gets is " + d[1] + " hours a day.");
-        System.out.println("The least amount of sunshine " + s[2] + " gets is " + d[2] + " hours a day.");
+        double[] unitCircle = {0, 1.57, 3.14, 6.28, 7.85};
+        //get and print the last element of the array
+        System.out.println("The final unit circle value is " + getLastElement(unitCircle));
+    }
+
+    public static double getLastElement(double[] arr)
+    {
+        // Your code goes here!
+        int id = arr.length;
+        return arr[id-1];
     }
 }
