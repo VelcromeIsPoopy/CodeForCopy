@@ -1,22 +1,24 @@
-public class Team
+public class Scores
 {
-    // Static Variables
-    // ...
-    static int totalTeams = 0;
-    static int minTeams = 6;
-    
-    // Public Methods
-    public Team() 
+    public static void main(String[] args)
     {
-        // Some code here...
-        totalTeams++;
-    }
-    
-    // Static Methods 
-    // ...
-    public static boolean tournamentReady()
-    {
-        boolean tea = totalTeams >= 6;
-        return tea;
+        // Start here!
+        int[] scores = {80, 95, 82, 67, 100};
+        
+        System.out.println(scores[0]);
+        System.out.println(scores[1]);
+        System.out.println(scores[2]);
+        System.out.println(scores[3]);
+        System.out.println(scores[4]);
+        
+        scores[2] = 72;
+        scores[4] = 95;
+        System.out.println("");
+        
+        System.out.println(scores[0]);
+        System.out.println(scores[1]);
+        System.out.println(scores[2]);
+        System.out.println(scores[3]);
+        System.out.println(scores[4]);
     }
 }
