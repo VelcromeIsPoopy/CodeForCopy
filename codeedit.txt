@@ -1,56 +1,20 @@
-var NUM_FLIPS = 100;
-
-function start(){
-	var flips = flipCoins();
-	printArray(flips);
-	countHeadsAndTails(flips);
-}
-
-// This function should flip a coin NUM_FLIPS
-// times, and add the result to an array. We
-// return the result to the caller.
-function flipCoins(){
-	var flips = [];
-	for(var i = 0; i < NUM_FLIPS; i++){
-		if(Randomizer.nextBoolean()){
-			flips.push("Heads");
-		}else{
-			flips.push("Tails");
-		}
-	}
-	return flips;
-}
-
-function printArray(arr){
-	for(var i = 0; i < arr.length; i++){
-		println(i + ": " + arr[i]);
-	}
-}
-
-function countHeadsAndTails(flips)
+public class PrintArray
 {
-    var arr = [];
-    var heads = 0;
-    var tails = 0;
-    for(var i = 0; i < flips.length; i++)
+    public static void main(String[] args)
     {
-        if(flips[i] == "Heads")
-        {
-            heads++;
-        } else if(flips[i] == "Tails") {
-            tails++;
-        }
+        String[] arr1 = new String[]{"w", "x", "y", "z"};
+        printArr(arr1);
+        
+        String[] arr2 = new String[]{"a", "b", "c"};
+        printArr(arr2);
     }
-    arr.push(heads);
-    arr.push(tails);
     
-    for(var o = 0; o < arr.length; o++)
+    public static void printArr(String[] arr)
     {
-        if(o == 1)
+        // Print everything in the array on its own line
+        for(int i = 0; i < arr.length; i++)
         {
-            println("Tails: " + arr[o]);
-        } else {
-            println("Heads: " + arr[o]);
+            System.out.println(i + ". " + arr[i]);
         }
     }
 }
