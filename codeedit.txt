@@ -1,96 +1,40 @@
-public class CarShowroom 
+public class ArrayPractice
 {
-   public static void main (String[] args)
-   {
-     CarShowroom showroom = new CarShowroom(7);
-     showroom.spaces[0] = new CarModel("Mustang", 157);
-     showroom.spaces[1] = new CarModel("Camaro",155);
-     showroom.spaces[3] = new CarModel("Corvette", 194);
-     showroom.spaces[6] = new CarModel("Porsche", 210);
-
-     // print out what is in the showroom
-     System.out.println(showroom);
-
-     // test output
-     System.out.println("Index of Mustang should be 0 and is " +
-                        showroom.findCarSpace("Mustang"));
-     System.out.println("Index of Corvette should be 3 and is " +
-                        showroom.findCarSpace("Corvette"));
-     System.out.println("Index of Miata should be -1 and is " +
-                        showroom.findCarSpace("Miata"));
-                        
-     
-     System.out.println("\nOriginal Car Showroom:");
-     System.out.println(showroom);
-     showroom.consolidate();
-     System.out.println("Car Showroom after cars have been consolidated:");
-     System.out.println(showroom);
-   }
-   
-   private CarModel[] spaces;
-
-   // constructor for number of spaces in showroom
-   public CarShowroom(int numParkingSpaces)
-   {
-     spaces = new CarModel[numParkingSpaces];
-   }
-
-   // Returns index of space that contains the car with the specified model
-   // and -1 if no car in the showroom is that model.No two cars in the showroom are the same model.
-
-   public int findCarSpace(String name)
-   {
-        // your code goes here
-        for(int i = 0; i < spaces.length; i++)
+    public static void main(String[] args)
+    {
+        int[][] array = {{3, 5, 7, 8, 0},
+                        {500, 250, 125, 784, 267, 674, 0}, 
+                        {9, 8, 0}};
+        // Call the updateValue method three times on this array:
+        int l1 = array[0].length;
+        int l2 = array[1].length;
+        int l3 = array[2].length;
+        int sum = l1 + l2 + l3;
+        updateValue(array, 0, 4, array.length);
+        updateValue(array, 1, 6, sum);
+        updateValue(array, 2, 2, array[0][0]);
+        
+        print(array);
+    }
+    
+    //Create a method to add the correct value to the array at the correct col, row
+    public static void updateValue(int[][] arr, int row, int col, int value)
+    {
+        arr[row][col] = value;
+    }
+    
+    
+    
+    //Do not make alterations to this method!
+    public static void print(int[][] array)
+    {
+        for(int[] row: array)
         {
-            if(spaces[i] != null && spaces[i].getName().equals(name))
+            for(int num: row)
             {
-                return i;
+                System.out.print(num + " ");
             }
+            System.out.println();
         }
-        return -1;
-   }
-   
-   // Consolidates cars in the showroom so that there are no gaps
-   // in the parking spaces so that it's easier to move new models in
-   
-   public void consolidate()
-   { 
-       // your code goes here
-       for(int i = 0; i < spaces.length; i++)
-       {
-           if(spaces[i] == null)
-           {
-                for(int o = i+1; o < spaces.length; o++)
-                {
-                    if(spaces[o] != null)
-                    {
-                        spaces[i] = spaces[o];
-                        spaces[o] = null;
-                    }
-                }
-           }
-       }
-   }
-
-   public String toString()
-   {
-     String result = "";
-     CarModel sp = null;
-     
-     // iterate through the spaces
-     for (int i = 0; i < spaces.length; i++) 
-     {
-       sp = spaces[i];
-       result = result + "Space " + i + " has a ";
-       
-       // locate empty spaces
-       if (sp == null)
-       {
-            result = result + " null \n";
-       }
-       else result = result + sp.toString() + "\n";
-     }
-     return result;
-   }
+    }
 }
