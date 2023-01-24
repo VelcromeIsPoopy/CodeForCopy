@@ -1,10 +1,38 @@
-public class TicTacToe
+import java.util.ArrayList;
+
+public class ArrayListMethods
 {
-    public String[][] getBoard()
+    public static void print(ArrayList<Double> e)
     {
-        String[][] goard = {{"-", "-", "-"},
-                        {"-", "-", "-"},
-                        {"-", "-", "-"}};
-        return goard;
+        for(int i = 0; i < e.size(); i++)
+        {
+            System.out.println(e.get(i));
+        }
+    }
+    
+    public static void condense(ArrayList<Double> e)
+    {
+        for(int i = 0; i < e.size(); i++)
+        {
+            Double r = e.get(i) * e.get(i+1);
+            e.remove(i);
+            e.remove(i);
+            e.add(i, r);
+        }
+    }
+    
+    public static void duplicate(ArrayList<Double> e)
+    {
+        ArrayList<Double> r = new ArrayList<Double>();
+        
+        for(int i = 0; i < e.size(); i++)
+        {
+            r.add(e.get(i));
+        }
+        
+        for(int o = 0; o < r.size(); o++)
+        {
+            e.add(r.get(o));
+        }
     }
 }
