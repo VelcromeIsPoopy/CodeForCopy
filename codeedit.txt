@@ -1,38 +1,48 @@
 import java.util.ArrayList;
 
-public class ArrayListMethods
+public class RoadTrip
 {
-    public static void print(ArrayList<Double> e)
+    
+    ArrayList<GeoLocation> trip;
+    // Create a GeoLocation and add it to the road trip
+    public void addStop(String name, double latitude, double longitude)
     {
-        for(int i = 0; i < e.size(); i++)
-        {
-            System.out.println(e.get(i));
-        }
+        GeoLocation g = new GeoLocation(name, latitude, longitude);
+        trip.add(g);
     }
     
-    public static void condense(ArrayList<Double> e)
+    public RoadTrip()
     {
-        for(int i = 0; i < e.size(); i++)
-        {
-            Double r = e.get(i) * e.get(i+1);
-            e.remove(i);
-            e.remove(i);
-            e.add(i, r);
-        }
+        trip = new ArrayList<GeoLocation>();
     }
     
-    public static void duplicate(ArrayList<Double> e)
+    // Get the total number of stops in the trip
+    public int getNumberOfStops()
     {
-        ArrayList<Double> r = new ArrayList<Double>();
-        
-        for(int i = 0; i < e.size(); i++)
+        return trip.size();
+    }
+    
+    // Get the total miles of the trip
+    public double getTripLength()
+    {
+        double theMiles = 0;
+        for (int i = 0; i < trip.size() - 1; i++)
         {
-            r.add(e.get(i));
+            double thisLeg = trip.get(i).distanceFrom(trip.get(i + 1));
+            theMiles += thisLeg;
         }
+        return theMiles;
+    }
+    
+    // Return a formatted toString of the trip
+    public String toString()
+    {
+        String thisR = "";
         
-        for(int o = 0; o < r.size(); o++)
+        for(int i = 0; i < trip.size(); i++)
         {
-            e.add(r.get(o));
+            thisR += (i+1) + ". " + trip.get(i) + "\n";
         }
+        return thisR;
     }
 }
