@@ -1,48 +1,71 @@
-import java.util.ArrayList;
+/*
+ * This class stores information about a location on Earth.  Locations are
+ * specified using latitude and longitude.  The class includes a method for
+ * computing the distance between two locations.
+ *
+ * This implementation is based off of the example from Stuart Reges at 
+ * the University of Washington.
+ */
 
-public class RoadTrip
+public class GeoLocation 
 {
-    
-    ArrayList<GeoLocation> trip;
-    // Create a GeoLocation and add it to the road trip
-    public void addStop(String name, double latitude, double longitude)
+    // Earth radius in miles
+    public static final double RADIUS = 3963.1676;  
+
+    private double latitude;
+    private double longitude;
+    private String name;
+
+    /**
+     * Constructs a geo location object with given latitude and longitude
+     */
+    public GeoLocation(String theName, double theLatitude, double theLongitude) 
     {
-        GeoLocation g = new GeoLocation(name, latitude, longitude);
-        trip.add(g);
+        latitude = theLatitude;
+        longitude = theLongitude;
+        name = theName;
     }
-    
-    public RoadTrip()
+
+    public String getName()
     {
-        trip = new ArrayList<GeoLocation>();
+        return name;
     }
-    
-    // Get the total number of stops in the trip
-    public int getNumberOfStops()
+
+    /**
+     * Returns the latitude of this geo location
+     */
+    public double getLatitude() 
     {
-        return trip.size();
+        return latitude;
     }
-    
-    // Get the total miles of the trip
-    public double getTripLength()
+
+    /**
+     * returns the longitude of this geo location
+     */
+    public double getLongitude() 
     {
-        double theMiles = 0;
-        for (int i = 0; i < trip.size() - 1; i++)
-        {
-            double thisLeg = trip.get(i).distanceFrom(trip.get(i + 1));
-            theMiles += thisLeg;
-        }
-        return theMiles;
+        return longitude;
     }
-    
-    // Return a formatted toString of the trip
-    public String toString()
+
+    // returns a string representation of this geo location
+    public String toString() 
     {
-        String thisR = "";
-        
-        for(int i = 0; i < trip.size(); i++)
-        {
-            thisR += (i+1) + ". " + trip.get(i) + "\n";
-        }
-        return thisR;
+        return name + " (" + latitude + ", " + longitude + ")";
+    }
+
+    // returns the distance in miles between this geo location and the given
+    // other geo location
+    public double distanceFrom(GeoLocation other) 
+    {
+        double lat1 = Math.toRadians(latitude);
+        double long1 = Math.toRadians(longitude);
+        double lat2 = Math.toRadians(other.latitude);
+        double long2 = Math.toRadians(other.longitude);
+        // apply the spherical law of cosines with a triangle composed of the
+        // two locations and the north pole
+        double theCos = Math.sin(lat1) * Math.sin(lat2) +
+            Math.cos(lat1) * Math.cos(lat2) * Math.cos(long1 - long2);
+        double arcLength = Math.acos(theCos);
+        return arcLength * RADIUS;
     }
 }
