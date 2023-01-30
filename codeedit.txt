@@ -1,71 +1,52 @@
-/*
- * This class stores information about a location on Earth.  Locations are
- * specified using latitude and longitude.  The class includes a method for
- * computing the distance between two locations.
- *
- * This implementation is based off of the example from Stuart Reges at 
- * the University of Washington.
- */
-
-public class GeoLocation 
+import java.util.ArrayList;
+public class isEqual
 {
-    // Earth radius in miles
-    public static final double RADIUS = 3963.1676;  
-
-    private double latitude;
-    private double longitude;
-    private String name;
-
-    /**
-     * Constructs a geo location object with given latitude and longitude
-     */
-    public GeoLocation(String theName, double theLatitude, double theLongitude) 
+    public static void main(String[] args)
     {
-        latitude = theLatitude;
-        longitude = theLongitude;
-        name = theName;
+        //This code is just to test your equals method
+        ArrayList<Integer> list1 = new ArrayList<Integer>();
+        list1.add(10);
+        list1.add(9);
+        list1.add(5);
+        list1.add(2);
+        list1.add(9);
+        ArrayList<Integer> list2 = new ArrayList<Integer>();
+        list2.add(10);
+        list2.add(9);
+        list2.add(5);
+        list2.add(2);
+        list2.add(9);
+        boolean isEqual = equals(list1, list2);
+        System.out.println("List 1 is equal to List 2: "+isEqual);
+        ArrayList<Integer> list3 = new ArrayList<Integer>();
+        list3.add(1);
+        list3.add(9);
+        list3.add(5);
+        list3.add(2);
+        list3.add(9);
+        boolean isEqual2 = equals(list2, list3);
+        System.out.println("List 2 is equal to List 3: "+isEqual2);
+        
     }
-
-    public String getName()
+    
+    //Write your method here!
+    public static boolean equals(ArrayList<Integer> array1, ArrayList<Integer> array2)
     {
-        return name;
-    }
-
-    /**
-     * Returns the latitude of this geo location
-     */
-    public double getLatitude() 
-    {
-        return latitude;
-    }
-
-    /**
-     * returns the longitude of this geo location
-     */
-    public double getLongitude() 
-    {
-        return longitude;
-    }
-
-    // returns a string representation of this geo location
-    public String toString() 
-    {
-        return name + " (" + latitude + ", " + longitude + ")";
-    }
-
-    // returns the distance in miles between this geo location and the given
-    // other geo location
-    public double distanceFrom(GeoLocation other) 
-    {
-        double lat1 = Math.toRadians(latitude);
-        double long1 = Math.toRadians(longitude);
-        double lat2 = Math.toRadians(other.latitude);
-        double long2 = Math.toRadians(other.longitude);
-        // apply the spherical law of cosines with a triangle composed of the
-        // two locations and the north pole
-        double theCos = Math.sin(lat1) * Math.sin(lat2) +
-            Math.cos(lat1) * Math.cos(lat2) * Math.cos(long1 - long2);
-        double arcLength = Math.acos(theCos);
-        return arcLength * RADIUS;
+        boolean e = false;
+        if(array1.size() > array2.size() || array2.size() > array1.size())
+        {
+            return false;
+        }
+        for(int index = 0; index < array1.size(); index++)
+        {
+            if(array1.get(index) == array2.get(index))
+    	    {
+                e = true;
+    	    } else {
+    	        e = false;
+    	        break;
+    	    }
+        }
+        return e;
     }
 }
