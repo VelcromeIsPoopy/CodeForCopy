@@ -1,60 +1,57 @@
 import java.util.ArrayList;
-
-public class AirlineTicket
+public class Billboard
 {
-    private String[] seats = {"A","B","C","D","E","F"};
-    private String name;
-    private String seat;
-    private int boardingGroup;
-    private int row;
-    
-    public AirlineTicket(String name, String seat, int boardingGroup, int row)
+    private ArrayList<Musician> top10 = new ArrayList<Musician>();
+ 
+    public void add(Musician artist)
     {
-        this.name = name;
-        if(isValidSeat(seat))
+        if (artist.getIsPlatinum())
         {
-            this.seat = seat;
-        }
-        this.boardingGroup = boardingGroup;
-        this.row = row;
-        
-    }
-    
-    private boolean isValidSeat(String seat)
-    {
-        boolean isValidSeat = false;
-        for(String elem: seats)
-        {
-            if(seat.equals(elem))
+            if (top10.size() < 10)
             {
-                isValidSeat = true;
+                top10.add(artist);
+            }
+            else
+            {
+                replace(artist);
             }
         }
-        return isValidSeat;
+        else
+        {
+            System.out.println("Sorry, " + artist.getName() + " does not qualify for Top 10");
+        }
     }
     
-    public String getSeat()
+    public void replace(Musician artist)
     {
-        return this.seat;
+        int lowIndex = 0;
+        int low40 = top10.get(0).getWeeksInTop40();
+        for (int i = 1; i < top10.size(); i++)
+        {
+            if (top10.get(i).getWeeksInTop40() < low40)
+            {
+                lowIndex = i;
+                low40 = top10.get(i).getWeeksInTop40();
+            }
+        }
+        if (artist.getWeeksInTop40() > low40)
+        {
+            System.out.println("The musician " + top10.get(lowIndex).getName() + " has been replaced by " + artist.getName() + ".");
+            top10.set(lowIndex, artist);
+        }
+        else
+        {
+            System.out.println("Sorry, " + artist.getName() + " has less weeks in the Top 40 than the other musicians.");
+        }
     }
-    
-    public String getName()
+ 
+ 
+ 
+ 
+ 
+    //Don't make alterations to this method!
+    public void printTop10()
     {
-        return this.name;
-    }
-    
-    public int getBoardingGroup()
-    {
-        return this.boardingGroup;
-    }
-    
-    public int getRow()
-    {
-        return this.row;
-    }
-    
-    public String toString()
-    {
-        return name + " Seat: " + seat + " Row: " + row + " Boarding Group: " + boardingGroup;
+        System.out.println(top10);
     }
 }
