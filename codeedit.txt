@@ -1,52 +1,60 @@
 import java.util.ArrayList;
-public class isEqual
+
+public class AirlineTicket
 {
-    public static void main(String[] args)
+    private String[] seats = {"A","B","C","D","E","F"};
+    private String name;
+    private String seat;
+    private int boardingGroup;
+    private int row;
+    
+    public AirlineTicket(String name, String seat, int boardingGroup, int row)
     {
-        //This code is just to test your equals method
-        ArrayList<Integer> list1 = new ArrayList<Integer>();
-        list1.add(10);
-        list1.add(9);
-        list1.add(5);
-        list1.add(2);
-        list1.add(9);
-        ArrayList<Integer> list2 = new ArrayList<Integer>();
-        list2.add(10);
-        list2.add(9);
-        list2.add(5);
-        list2.add(2);
-        list2.add(9);
-        boolean isEqual = equals(list1, list2);
-        System.out.println("List 1 is equal to List 2: "+isEqual);
-        ArrayList<Integer> list3 = new ArrayList<Integer>();
-        list3.add(1);
-        list3.add(9);
-        list3.add(5);
-        list3.add(2);
-        list3.add(9);
-        boolean isEqual2 = equals(list2, list3);
-        System.out.println("List 2 is equal to List 3: "+isEqual2);
+        this.name = name;
+        if(isValidSeat(seat))
+        {
+            this.seat = seat;
+        }
+        this.boardingGroup = boardingGroup;
+        this.row = row;
         
     }
     
-    //Write your method here!
-    public static boolean equals(ArrayList<Integer> array1, ArrayList<Integer> array2)
+    private boolean isValidSeat(String seat)
     {
-        boolean e = false;
-        if(array1.size() > array2.size() || array2.size() > array1.size())
+        boolean isValidSeat = false;
+        for(String elem: seats)
         {
-            return false;
+            if(seat.equals(elem))
+            {
+                isValidSeat = true;
+            }
         }
-        for(int index = 0; index < array1.size(); index++)
-        {
-            if(array1.get(index) == array2.get(index))
-    	    {
-                e = true;
-    	    } else {
-    	        e = false;
-    	        break;
-    	    }
-        }
-        return e;
+        return isValidSeat;
+    }
+    
+    public String getSeat()
+    {
+        return this.seat;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public int getBoardingGroup()
+    {
+        return this.boardingGroup;
+    }
+    
+    public int getRow()
+    {
+        return this.row;
+    }
+    
+    public String toString()
+    {
+        return name + " Seat: " + seat + " Row: " + row + " Boarding Group: " + boardingGroup;
     }
 }
