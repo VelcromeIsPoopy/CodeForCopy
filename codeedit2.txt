@@ -1,33 +1,41 @@
-public class Musician
+import java.util.ArrayList;
+
+public class AirlineTicket
 {
+    private String[] seats = {"A","B","C","D","E","F"};
     private String name;
-    private int weeksInTop40;
-    private int albumsSold;
-    private boolean isPlatinum;;
+    private String seat;
+    private int boardingGroup;
+    private int row;
     
-    public Musician(String name, int weeksInTop40, int albumsSold)
+    public AirlineTicket(String name, String seat, int boardingGroup, int row)
     {
         this.name = name;
-        this.weeksInTop40 = weeksInTop40;
-        this.albumsSold = albumsSold;
-        setPlatinum(albumsSold);
+        if(isValidSeat(seat))
+        {
+            this.seat = seat;
+        }
+        this.boardingGroup = boardingGroup;
+        this.row = row;
+        
     }
     
-    public void setPlatinum(int albumsSold)
+    private boolean isValidSeat(String seat)
     {
-        if(albumsSold >= 1000000)
+        boolean isValidSeat = false;
+        for(String elem: seats)
         {
-            isPlatinum = true;
+            if(seat.equals(elem))
+            {
+                isValidSeat = true;
+            }
         }
-        else
-        {
-            isPlatinum = false;
-        }
+        return isValidSeat;
     }
     
-    public int getWeeksInTop40()
+    public String getSeat()
     {
-        return this.weeksInTop40;
+        return this.seat;
     }
     
     public String getName()
@@ -35,13 +43,18 @@ public class Musician
         return this.name;
     }
     
-    public boolean getIsPlatinum()
+    public int getBoardingGroup()
     {
-        return isPlatinum;
+        return this.boardingGroup;
+    }
+    
+    public int getRow()
+    {
+        return this.row;
     }
     
     public String toString()
     {
-        return this.name;
+        return name + " Seat: " + seat + " Row: " + row + " Boarding Group: " + boardingGroup;
     }
 }
