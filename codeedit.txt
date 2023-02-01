@@ -1,57 +1,27 @@
 import java.util.ArrayList;
-public class Billboard
+
+public class ArrayListSearch
 {
-    private ArrayList<Musician> top10 = new ArrayList<Musician>();
- 
-    public void add(Musician artist)
-    {
-        if (artist.getIsPlatinum())
-        {
-            if (top10.size() < 10)
-            {
-                top10.add(artist);
-            }
-            else
-            {
-                replace(artist);
-            }
-        }
-        else
-        {
-            System.out.println("Sorry, " + artist.getName() + " does not qualify for Top 10");
-        }
+    public static void main(String[] args) {
+        ArrayList<Double> array = new ArrayList<Double>();
+        array.add(4.5);
+        array.add(6.7);
+        array.add(5.0);
+        array.add(2.9);
+        array.add(7.0);
+        System.out.println(search(array, 5.0));
     }
-    
-    public void replace(Musician artist)
+
+    public static int search(ArrayList<Double> array, double key)
     {
-        int lowIndex = 0;
-        int low40 = top10.get(0).getWeeksInTop40();
-        for (int i = 1; i < top10.size(); i++)
+        for(int i = 0; i < array.size(); i++)
         {
-            if (top10.get(i).getWeeksInTop40() < low40)
+            double element = array.get(i);
+            if(element == key)
             {
-                lowIndex = i;
-                low40 = top10.get(i).getWeeksInTop40();
+                return i;
             }
         }
-        if (artist.getWeeksInTop40() > low40)
-        {
-            System.out.println("The musician " + top10.get(lowIndex).getName() + " has been replaced by " + artist.getName() + ".");
-            top10.set(lowIndex, artist);
-        }
-        else
-        {
-            System.out.println("Sorry, " + artist.getName() + " has less weeks in the Top 40 than the other musicians.");
-        }
-    }
- 
- 
- 
- 
- 
-    //Don't make alterations to this method!
-    public void printTop10()
-    {
-        System.out.println(top10);
+        return -1;
     }
 }
