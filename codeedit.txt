@@ -1,48 +1,47 @@
-import java.util.ArrayList;
-
-public class TicketOrganizer
+public class Musician
 {
-    private ArrayList<AirlineTicket> tickets;
+    private String name;
+    private int weeksInTop40;
+    private int albumsSold;
+    private boolean isPlatinum;;
     
-    public TicketOrganizer(ArrayList<AirlineTicket> a)
+    public Musician(String name, int weeksInTop40, int albumsSold)
     {
-        tickets = a;
+        this.name = name;
+        this.weeksInTop40 = weeksInTop40;
+        this.albumsSold = albumsSold;
+        setPlatinum(albumsSold);
     }
     
-    public ArrayList<AirlineTicket> getTickets()
+    public void setPlatinum(int albumsSold)
     {
-        return tickets;
-    }
-    
-    public void printPassengersByBoardingGroup()
-    {
-        for (int i = 1; i <= 5; i++) //boarding group
+        if(albumsSold >= 1000000)
         {
-            System.out.println("Boarding Group " + i + ":");
-            for (int j = 0; j < tickets.size(); j++)
-            {
-                if (tickets.get(j).getBoardingGroup() == i)
-                {
-                    System.out.println("Passenger " + (j + 1));
-                }
-            }
+            isPlatinum = true;
+        }
+        else
+        {
+            isPlatinum = false;
         }
     }
     
-    public void canBoardTogether()
+    public int getWeeksInTop40()
     {
-        boolean foundOne = false;
-        for (int i = 0; i < tickets.size() - 1; i++)
-        {
-            if (tickets.get(i).getRow() == tickets.get(i + 1).getRow() && tickets.get(i).getBoardingGroup() == tickets.get(i + 1).getBoardingGroup())
-            {
-                System.out.println("Passenger " + (i + 1) + " can board with Passenger " + (i + 2) + ".");
-                foundOne = true;
-            }
-        }
-        if (!foundOne)
-        {
-            System.out.println("There are no passengers with the same row and boarding group.");
-        }
+        return this.weeksInTop40;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public boolean getIsPlatinum()
+    {
+        return isPlatinum;
+    }
+    
+    public String toString()
+    {
+        return this.name;
     }
 }
