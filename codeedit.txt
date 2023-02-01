@@ -1,30 +1,48 @@
 import java.util.ArrayList;
 
-public class DataPurge
+public class TicketOrganizer
 {
-    public static String removeDuplicates(ArrayList<String> arr)
+    private ArrayList<AirlineTicket> tickets;
+    
+    public TicketOrganizer(ArrayList<AirlineTicket> a)
     {
-        for(int i = 0; i < arr.size(); i++)
+        tickets = a;
+    }
+    
+    public ArrayList<AirlineTicket> getTickets()
+    {
+        return tickets;
+    }
+    
+    public void printPassengersByBoardingGroup()
+    {
+        for (int i = 1; i <= 5; i++) //boarding group
         {
-            for(int o = 0; o < arr.size(); o++)
+            System.out.println("Boarding Group " + i + ":");
+            for (int j = 0; j < tickets.size(); j++)
             {
-                if(arr.get(i) == arr.get(o))
+                if (tickets.get(j).getBoardingGroup() == i)
                 {
-                    System.out.println(arr.get(o));
-                    arr.remove(o);
+                    System.out.println("Passenger " + (j + 1));
                 }
             }
         }
-        return "No duplicates found";
-    }
-
-    public static void removeName(ArrayList<String> arr)
-    {
-        
     }
     
-    public static void correctlyFormatted(ArrayList<String> arr)
+    public void canBoardTogether()
     {
-        
+        boolean foundOne = false;
+        for (int i = 0; i < tickets.size() - 1; i++)
+        {
+            if (tickets.get(i).getRow() == tickets.get(i + 1).getRow() && tickets.get(i).getBoardingGroup() == tickets.get(i + 1).getBoardingGroup())
+            {
+                System.out.println("Passenger " + (i + 1) + " can board with Passenger " + (i + 2) + ".");
+                foundOne = true;
+            }
+        }
+        if (!foundOne)
+        {
+            System.out.println("There are no passengers with the same row and boarding group.");
+        }
     }
 }
