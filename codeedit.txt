@@ -1,37 +1,17 @@
-import java.util.Scanner;
-
-public class TicTacToeTester
+public class FoodTester
 {
     public static void main(String[] args)
     {
-        TicTacToe game = new TicTacToe();
-        System.out.println("Initial Game Board:");
-        game.printBoard();
-        int i = 5;
-        while(i == 5)
-        {
-            Scanner input = new Scanner(System.in);
-            System.out.println("Pick Row Number: ");
-            int row = input.nextInt();
-           
-            System.out.println("Pick Column Number: ");
-            int col = input.nextInt();
-           
-            if(game.pickLocation(row, col) == true)
-            {
-                game.takeTurn(row, col);
-                System.out.println("");
-                System.out.println("Current Game Board:");
-                game.printBoard();
-            }
-           
-            game.checkWin();
-           
-            if(game.checkWin() == true)
-            {
-                i = 0;
-                System.out.println("Three in a Row!");
-            }
-        }
+        // Test each of your classes
+        Food food1 = new Food("Apple", 130);
+        HealthyFood food2 = new HealthyFood("Strawberry", 150, "Berry", "Red");
+        Fruit food3 = new Fruit("Orange", 200, "Orange", false, "Vitamin C");
+        // Make an object of each type
+        // Use the getters to verify the fields are set correctly
+        System.out.println(food1.getName());
+        System.out.println(food2.getColor());
+        System.out.println(food3.getVitamins());
+        System.out.println(food1);
+        System.out.println(food3.isInSeason());
     }
 }
