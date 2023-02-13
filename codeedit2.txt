@@ -1,60 +1,31 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class AirlineTicket
+public class PersonTester
 {
-    private String[] seats = {"A","B","C","D","E","F"};
-    private String name;
-    private String seat;
-    private int boardingGroup;
-    private int row;
-    
-    public AirlineTicket(String name, String seat, int boardingGroup, int row)
+    public static void main(String[] args)
     {
-        this.name = name;
-        if(isValidSeat(seat))
-        {
-            this.seat = seat;
-        }
-        this.boardingGroup = boardingGroup;
-        this.row = row;
+        // Start here!
+        Scanner input = new Scanner(System.in);
         
-    }
-    
-    private boolean isValidSeat(String seat)
-    {
-        boolean isValidSeat = false;
-        for(String elem: seats)
-        {
-            if(seat.equals(elem))
-            {
-                isValidSeat = true;
-            }
-        }
-        return isValidSeat;
-    }
-    
-    public String getSeat()
-    {
-        return this.seat;
-    }
-    
-    public String getName()
-    {
-        return this.name;
-    }
-    
-    public int getBoardingGroup()
-    {
-        return this.boardingGroup;
-    }
-    
-    public int getRow()
-    {
-        return this.row;
-    }
-    
-    public String toString()
-    {
-        return name + " Seat: " + seat + " Row: " + row + " Boarding Group: " + boardingGroup;
+        System.out.println("Please enter the Person's name: ");
+        String name = input.nextLine();
+        
+        System.out.println("Please enter the Person's birthday: ");
+        String birthday = input.nextLine();
+        
+        Person per1 = new Person(name, birthday);
+        
+        System.out.println("Please enter the Student's name: ");
+        String stuName = input.nextLine();
+        
+        System.out.println("Please enter the Student's birthday: ");
+        String stuBirthday = input.nextLine();
+        
+        System.out.println("Please enter the Student's grade: ");
+        int grade = input.nextInt();
+        
+        Student stu1 = new Student(stuName, stuBirthday, grade);
+        
+        System.out.println("Same: " + per1.equals(stu1));
     }
 }
