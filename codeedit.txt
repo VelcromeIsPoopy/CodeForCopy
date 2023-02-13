@@ -1,17 +1,20 @@
-public class FoodTester
+import java.util.ArrayList;
+
+public class PieTester
 {
     public static void main(String[] args)
     {
-        // Test each of your classes
-        Food food1 = new Food("Apple", 130);
-        HealthyFood food2 = new HealthyFood("Strawberry", 150, "Berry", "Red");
-        Fruit food3 = new Fruit("Orange", 200, "Orange", false, "Vitamin C");
-        // Make an object of each type
-        // Use the getters to verify the fields are set correctly
-        System.out.println(food1.getName());
-        System.out.println(food2.getColor());
-        System.out.println(food3.getVitamins());
-        System.out.println(food1);
-        System.out.println(food3.isInSeason());
+        // Start here!
+        Pie[] pies = new Pie[3];
+        ApplePie apple = new ApplePie(6);
+        PecanPie pecan = new PecanPie(8, "Maple");
+        Pie rubarb = new Pie("Rubarb", 12);
+        pies[0] = apple;
+        pies[1] = pecan;
+        pies[2] = rubarb;
+        for(int i = 0; i < 3; i++)
+        {
+            System.out.println(pies[i].getSlices() + " slice " + pies[i].getType() + " pie");
+        }
     }
 }
