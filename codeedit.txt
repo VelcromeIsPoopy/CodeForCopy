@@ -1,26 +1,97 @@
-public class OnlineCompany extends Company{
-
-    private String webAddress;
-
-    public OnlineCompany(String name, String webAddress){
-        super(name);
-        this.webAddress = webAddress;
+function checkWin(){
+    if(grid.get(0, 0) == 1 && grid.get(0, 1) == 1 && grid.get(0, 2) == 1){
+        winLY(1);
+    } else if(grid.get(1, 0) == 1 && grid.get(1, 1) == 1 && grid.get(1, 2) == 1){
+        winLY(2);
+    } else if(grid.get(2, 0) == 1 && grid.get(2, 1) == 1 && grid.get(2, 2) == 1){
+        winLY(3);
+    } else if(grid.get(0, 0) == 1 && grid.get(1, 0) == 1 && grid.get(2, 0) == 1){
+        winLX(1);
+    } else if(grid.get(0, 1) == 1 && grid.get(1, 1) == 1 && grid.get(2, 1) == 1){
+        winLX(2);
+    } else if(grid.get(0, 2) == 1 && grid.get(1, 2) == 1 && grid.get(2, 2) == 1){
+        winLX(3);
+    } else if(grid.get(0, 0) == 1 && grid.get(1, 1) == 1 && grid.get(2, 2) == 1){
+        winD(1);
+    } else if(grid.get(0, 2) == 1 && grid.get(1, 1) == 1 && grid.get(2, 0) == 1){
+        winD(2)
     }
-
-    //Return the website address
-
-    public String address(){
-        return this.webAddress;
-    }
-
-    /**
-    * Remember: To get name from superclass, use super.getName()
-    * Example Output:
-    * CodeHS
-    * www.codehs.com
-    */
     
-    public String toString(){
-        return super.getName() + "\n" + "Website: " + webAddress;
+    if(grid.get(0, 0) == 2 && grid.get(0, 1) == 2 && grid.get(0, 2) == 2){
+        winLY(1);
+    } else if(grid.get(1, 0) == 2 && grid.get(1, 1) == 2 && grid.get(1, 2) == 2){
+        winLY(2);
+    } else if(grid.get(2, 0) == 2 && grid.get(2, 1) == 2 && grid.get(2, 2) == 2){
+        winLY(3);
+    } else if(grid.get(0, 0) == 2 && grid.get(1, 0) == 2 && grid.get(2, 0) == 2){
+        winLX(1);
+    } else if(grid.get(0, 1) == 2 && grid.get(1, 1) == 2 && grid.get(2, 1) == 2){
+        winLX(2);
+    } else if(grid.get(0, 2) == 2 && grid.get(1, 2) == 2 && grid.get(2, 2) == 2){
+        winLX(3);
+    } else if(grid.get(0, 0) == 2 && grid.get(1, 1) == 2 && grid.get(2, 2) == 2){
+        winD(1);
+    } else if(grid.get(0, 2) == 2 && grid.get(1, 1) == 2 && grid.get(2, 0) == 2){
+        winD(2)
+    }
+}
+
+function winLX(e){
+    if(e == 1){
+        var l = new Line(-10, getHeight()/6, 410, getHeight()/6);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    } else if(e == 2){
+        var l = new Line(-10, getHeight()/2, 410, getHeight()/2);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    } else if(e == 3){
+        var l = new Line(-10, (getHeight()/6)*5, 410, (getHeight()/6)*5);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    }
+}
+
+function winLY(e){
+    if(e == 1){
+        var l = new Line(getWidth()/6, -10, getWidth()/6, 410);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    } else if(e == 2){
+        var l = new Line(getWidth()/2, -10, getWidth()/2, 410);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    } else if(e == 3){
+        var l = new Line((getWidth()/6)*5, -10, (getWidth()/6)*5, 410);
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    }
+}
+
+function winD(e){
+    if(e == 1){
+        var l = new Line(0, 0, getWidth(), getHeight());
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
+    } else if(e == 2){
+        var l = new Line(getWidth(), 0, 0, getHeight());
+        l.setColor(WINNING_LINE_COLOR);
+        l.setLineWidth(WINNING_LINE_WIDTH);
+        add(l);
+        mouse = false;
     }
 }
