@@ -1,3 +1,5 @@
+var sc = 1;
+
 var DELAY = 40;
 var SPEED = 5;
 var maxdy = 12;
@@ -7,7 +9,7 @@ var dy = 0;
 
 var obstacleWidth = 30;
 var obstacleHeight = 100;
-var obstacle;
+var no = 3;
 
 var tw = 10;
 var minth = 20;
@@ -15,6 +17,7 @@ var maxth = 50;
 
 var clicking = false;
 
+var obstacles = [];
 var tt = [];
 var bt = [];
 var dust = [];
@@ -28,6 +31,14 @@ var db = 10;
 
 function start(){
 	// Write your code here
+	var diff = readLine("|Difficulty|\nEasy | Medium | Hard");
+	if(diff == "Easy"){
+	    no = 3;
+	} else if(diff == "Medium"){
+	    no = 5;
+	} else {
+	    no = 7;
+	}
 	setup();
 	setTimer(game, DELAY);
 	mouseDownMethod(onMouseDown);
@@ -84,6 +95,10 @@ function game(){
     moveTerrain();
     moveDust();
     addDust();
+    sc++;
+    if(sc % 500 == 0){
+        SPEED += 3;
+    }
 }
 
 function onMouseDown(e){
@@ -95,16 +110,22 @@ function onMouseUp(e){
 }
 
 function addObstacles(){
-    obstacle = new Rectangle(obstacleWidth, obstacleHeight);
-    obstacle.setColor(Color.green);
-    obstacle.setPosition(getWidth(), Randomizer.nextInt(0, getHeight()-obstacleHeight));
-    add(obstacle);
+    for(var i = 0; i < no; i++){
+        var obstacle = new Rectangle(obstacleWidth, obstacleHeight);
+        obstacle.setColor(Color.green);
+        obstacle.setPosition(getWidth() + i * (getWidth()/no), Randomizer.nextInt(0, getHeight()-obstacleHeight));
+        obstacles.push(obstacle);
+        add(obstacle);
+    }
 }
 
 function moveObstacles(){
-    obstacle.move(-SPEED, 0);
-    if(obstacle.getX() < 0){
-        obstacle.setPosition(getWidth(), Randomizer.nextInt(0, getHeight()-obstacleHeight));
+    for(var i = 0; i < obstacles.length; i++){
+        var obstacle = obstacles[i];
+        obstacle.move(-SPEED, 0);
+        if(obstacle.getX() < 0){
+            obstacle.setPosition(getWidth(), Randomizer.nextInt(0, getHeight()-obstacleHeight));
+        }
     }
 }
 
