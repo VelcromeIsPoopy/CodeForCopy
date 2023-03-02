@@ -1,225 +1,112 @@
-var sc = 1;
+public class MergeSortPrint {
 
-var DELAY = 40;
-var SPEED = 5;
-var maxdy = 12;
-
-var copter;
-var dy = 0;
-
-var obstacleWidth = 30;
-var obstacleHeight = 100;
-var no = 3;
-
-var tw = 10;
-var minth = 20;
-var maxth = 50;
-
-var clicking = false;
-
-var obstacles = [];
-var tt = [];
-var bt = [];
-var dust = [];
-
-var points = 0;
-var score;
-var ppr = 5;
-
-var dr = 3;
-var db = 10;
-
-function start(){
-	// Write your code here
-	var diff = readLine("|Difficulty|\nEasy | Medium | Hard");
-	if(diff == "Easy"){
-	    no = 3;
-	} else if(diff == "Medium"){
-	    no = 5;
-	} else {
-	    no = 7;
-	}
-	setup();
-	setTimer(game, DELAY);
-	mouseDownMethod(onMouseDown);
-	mouseUpMethod(onMouseUp);
-}
-
-function setup(){
-    setBackgroundColor(Color.black);
-    copter = new WebImage(ImageLibrary.Objects.helicopter);
-    copter.setSize(50, 25);
-    copter.setPosition(getWidth()/3, getHeight()/2);
-    copter.setColor(Color.blue);
-    add(copter);
-    
-    addObstacles();
-    addTerrain();
-    
-    score = new Text("0");
-    score.setColor(Color.white);
-    score.setPosition(10, 30);
-    add(score);
-}
-
-function updateScore(){
-    points += ppr;
-    score.setText(points);
-}
-
-function game(){
-    updateScore();
-    if(hitWall()){
-        lose();
-    }
-    
-    var collider = getCollider();
-    if(collider != null && collider != copter){
-        lose();
-        return;
-    }
-    
-    if(clicking){
-        dy -= 1;
-        if(dy < -maxdy){
-            dy = -maxdy;
-        }
-    } else {
-        dy += 1;
-        if(dy > maxdy){
-            dy = maxdy;
-        }
-    }
-    copter.move(0, dy);
-    moveObstacles();
-    moveTerrain();
-    moveDust();
-    addDust();
-    sc++;
-    if(sc % 500 == 0){
-        SPEED += 3;
-    }
-}
-
-function onMouseDown(e){
-    clicking = true;
-}
-
-function onMouseUp(e){
-    clicking = false;
-}
-
-function addObstacles(){
-    for(var i = 0; i < no; i++){
-        var obstacle = new Rectangle(obstacleWidth, obstacleHeight);
-        obstacle.setColor(Color.green);
-        obstacle.setPosition(getWidth() + i * (getWidth()/no), Randomizer.nextInt(0, getHeight()-obstacleHeight));
-        obstacles.push(obstacle);
-        add(obstacle);
-    }
-}
-
-function moveObstacles(){
-    for(var i = 0; i < obstacles.length; i++){
-        var obstacle = obstacles[i];
-        obstacle.move(-SPEED, 0);
-        if(obstacle.getX() < 0){
-            obstacle.setPosition(getWidth(), Randomizer.nextInt(0, getHeight()-obstacleHeight));
-        }
-    }
-}
-
-function hitWall(){
-    var hitTop = copter.getY() < 0;
-    var hitBottom = copter.getY() + copter.getHeight() > getHeight();
-    return hitTop || hitBottom;
-}
-
-function lose(){
-    stopTimer(game);
-    var t = new Text("You Lose!");
-    t.setColor(Color.red);
-    t.setPosition(getWidth()/2 - t.getWidth()/2, getHeight()/2);
-    add(t);
-}
-
-function getCollider(){
-    var topLeft = getElementAt(copter.getX()-1, copter.getY()-1);
-    if(topLeft != null){
-        return topLeft;
-    }
-    
-    var topRight = getElementAt(copter.getX() + copter.getWidth() + 1, copter.getY()-1);
-    if(topRight != null){
-        return topRight;
-    }
-    
-    var bottomLeft = getElementAt(copter.getX()-1, copter.getY() + copter.getHeight() + 1);
-    if(bottomLeft != null){
-        return bottomLeft;
-    }
-    
-    var bottomRight = getElementAt(copter.getX() + copter.getWidth() + 1, copter.getY() + copter.getHeight() + 1);
-    if(bottomRight != null){
-        return bottomRight;
-    }
-    
-    return null;
-}
-
-function addTerrain(){
-    for(var i = 0; i < getWidth()/tw; i++){
-        var height = Randomizer.nextInt(minth, maxth);
-        var terrain = new Rectangle(tw, height);
-        terrain.setPosition(tw * i, 0);
-        terrain.setColor(Color.green);
-        tt.push(terrain);
-        add(terrain);
+    public static void main(String[] args) {
+        int[] myArray = {20, 9, 13, 34, 11, 22, 13, 10};
+        System.out.print("Unsorted: ");
         
-        height = Randomizer.nextInt(minth, maxth);
-        var bottomTerrain = new Rectangle(tw, height);
-        bottomTerrain.setPosition(tw * i, getHeight() - bottomTerrain.getHeight());
-        bottomTerrain.setColor(Color.green);
-        bt.push(bottomTerrain);
-        add(bottomTerrain);
-    }
-}
+        // Print unsorted array
+        for(int i = 0; i < myArray.length; i++){
+            System.out.print(myArray[i] + " ");
+        }
+        System.out.println();
+        System.out.println();
+        mergeSort(myArray, myArray.length);
 
-function moveTerrain(){
-    for(var i = 0; i < tt.length; i++){
-        var obj = tt[i];
-        obj.move(-SPEED, 0);
-        if(obj.getX() < -obj.getWidth()){
-            obj.setPosition(getWidth(), 0);
+        System.out.print("Sorted: ");
+       
+        // Print Sorted Array
+        
+        for(int i = 0; i < myArray.length; i++){
+            System.out.print(myArray[i] + " ");
         }
     }
-    
-    for(var i = 0; i < bt.length; i++){
-        var obj = bt[i];
-        obj.move(-SPEED, 0);
-        if(obj.getX() < -obj.getWidth()){
-            obj.setPosition(getWidth(), getHeight() - obj.getHeight());
+
+    public static void mergeSort(int[] current, int length) {
+        if (length < 2) {
+            return;
         }
+        
+        System.out.println("Splitting ...");
+        
+        int mid = length / 2;
+        int[] left = new int[mid];
+
+        int[] right = new int[length - mid];
+        
+        
+        System.out.print("*** Left Half: ");
+        
+        // Create and print left array
+        
+        for (int i = 0; i < mid; i++) {
+            left[i] = current[i];
+        }
+        
+        for(int i = 0; i < left.length; i++)
+        {
+            System.out.print(left[i] + " ");
+        }
+        
+        System.out.println();
+        System.out.print("*** Right Half: ");
+        
+        // Create and print right array
+        for (int i = mid; i < length; i++) {
+            right[i - mid] = current[i];
+
+        }
+        
+        for(int i = 0; i < right.length; i++)
+        {
+            System.out.print(right[i] + " ");
+        }
+        
+        System.out.println();
+        System.out.println();
+        
+        mergeSort(left, mid);
+        mergeSort(right, length - mid);
+
+        merge(current, left, right);
+        
+        System.out.print("*** Sorted so Far: ");
+        
+        // Print current array
+        for(int i = 0; i < current.length; i++)
+        {
+            System.out.print(current[i] + " ");
+        }
+        System.out.println();
     }
-}
 
-function addDust(){
-    var d = new Circle(dr);
-    d.setColor("#cccccc");
-    d.setPosition(copter.getX() - d.getWidth(), copter.getY() + db);
-    dust.push(d);
-    add(d);
-}
+    public static void merge(int[] current, int[] left, int[] right)
+    {
+        System.out.println("Merging ... ");
+        int leftSize = left.length;
+        int rightSize = right.length;
 
-function moveDust(){
-    for(var i = 0; i < dust.length; i++){
-        var d = dust[i];
-        d.move(-SPEED, 0);
-        d.setRadius(d.getRadius() - 0.1);
-        if(d.getX() < 0){
-            remove(d);
-            dust.remove(i);
-            i--;
+        int i = 0, j = 0, k = 0;
+        while (i < leftSize && j < rightSize) {
+            if (left[i] <= right[j]) {
+                current[k] = left[i];
+                k++;
+                i++;
+            }
+            else {
+                current[k] = right[j];
+                k++;
+                j++;
+            }
+        }
+        while (i < leftSize) {
+            current[k] = left[i];
+                k++;
+                i++;
+        }
+        while (j < rightSize) {
+            current[k] = right[j];
+                k++;
+                j++;
         }
     }
 }
